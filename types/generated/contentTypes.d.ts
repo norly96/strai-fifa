@@ -683,6 +683,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'Category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -701,6 +702,16 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    t_shirts: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::t-shirt.t-shirt'
+    >;
+    soccer_shoes: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::soccer-shoe.soccer-shoe'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -720,6 +731,106 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'api::category.category',
       'oneToMany',
       'api::category.category'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiSoccerShoeSoccerShoe extends Schema.CollectionType {
+  collectionName: 'soccer_shoes';
+  info: {
+    singularName: 'soccer-shoe';
+    pluralName: 'soccer-shoes';
+    displayName: 'Soccer Shoe';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    description: Attribute.RichText &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    price: Attribute.Float &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::soccer-shoe.soccer-shoe', 'name'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    favorite: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    size: Attribute.JSON &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    category: Attribute.Relation<
+      'api::soccer-shoe.soccer-shoe',
+      'manyToOne',
+      'api::category.category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::soccer-shoe.soccer-shoe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::soccer-shoe.soccer-shoe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::soccer-shoe.soccer-shoe',
+      'oneToMany',
+      'api::soccer-shoe.soccer-shoe'
     >;
     locale: Attribute.String;
   };
@@ -762,13 +873,6 @@ export interface ApiTShirtTShirt extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    size: Attribute.Enumeration<['XS', 'S', 'M', 'L', 'XL']> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     price: Attribute.Float &
       Attribute.Required &
       Attribute.SetPluginOptions<{
@@ -789,6 +893,23 @@ export interface ApiTShirtTShirt extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    size: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    favorite: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    category: Attribute.Relation<
+      'api::t-shirt.t-shirt',
+      'manyToOne',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -830,6 +951,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::category.category': ApiCategoryCategory;
+      'api::soccer-shoe.soccer-shoe': ApiSoccerShoeSoccerShoe;
       'api::t-shirt.t-shirt': ApiTShirtTShirt;
     }
   }

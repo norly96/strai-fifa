@@ -4,7 +4,8 @@
   "info": {
     "singularName": "category",
     "pluralName": "categories",
-    "displayName": "Category"
+    "displayName": "Category",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,6 +25,18 @@
       "type": "string",
       "unique": true,
       "required": true
+    },
+    "t_shirts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::t-shirt.t-shirt",
+      "mappedBy": "category"
+    },
+    "soccer_shoes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::soccer-shoe.soccer-shoe",
+      "mappedBy": "category"
     }
   }
 }

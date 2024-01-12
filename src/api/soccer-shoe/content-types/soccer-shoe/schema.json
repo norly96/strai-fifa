@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "t_shirts",
+  "collectionName": "soccer_shoes",
   "info": {
-    "singularName": "t-shirt",
-    "pluralName": "t-shirts",
-    "displayName": "T-shirt",
+    "singularName": "soccer-shoe",
+    "pluralName": "soccer-shoes",
+    "displayName": "Soccer Shoe",
     "description": ""
   },
   "options": {
@@ -65,15 +65,8 @@
         }
       },
       "type": "uid",
-      "targetField": "name"
-    },
-    "size": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "json"
+      "targetField": "name",
+      "required": true
     },
     "favorite": {
       "pluginOptions": {
@@ -83,11 +76,20 @@
       },
       "type": "boolean"
     },
+    "size": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json",
+      "required": true
+    },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "t_shirts"
+      "inversedBy": "soccer_shoes"
     }
   }
 }
